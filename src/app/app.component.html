@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="tr form-group">
+          <label for="email">Email</label>
+          <input
+            class="form-control"
+            id="email"
+            type="email"
+            email
+            ngModel
+            name="email"
+            required
+            #email="ngModel">
+          <div class="invalid-feedback" *ngIf="!email.valid && email.touched">Please check the field</div>
+        </div>
+
+        <div class="tr form-group">
+          <label for="subs">Subscription</label>
+          <select
+            class="form-control"
+            id="subs"
+            [(ngModel)]="selectDefaultValue"
+            name="subscription">
+            <option>Basic</option>
+            <option>Advanced</option>
+            <option>Pro</option>
+          </select>
+        </div>
+
+        <div class="tr form-group">
+          <label for="password">Password</label>
+          <input
+            class="form-control"
+            id="password"
+            type="password"
+            ngModel
+            name="password"
+            required
+            #password="ngModel">
+          <div class="invalid-feedback" *ngIf="!password.valid && password.touched">Please check the field</div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid" >Submit form</button>
+        <div class="invalid-feedback" *ngIf="!f.valid && f.touched">Form has errors, please check and try again</div>
+
+        <div *ngIf="formSent">
+          <h2>Form Sent!</h2>
+          <div>Email: {{ f.value.email }}</div>
+          <div>Subscription: {{ f.value.subscription }}</div>
+          <div>Password: {{ f.value.password }}</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
